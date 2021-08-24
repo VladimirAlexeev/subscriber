@@ -15,11 +15,47 @@ class EmailRepository
 
     public function all()
     {
+        $emailList = [];
         $sql = 'SELECT * FROM emails';
         $statement = $this->db->prepare($sql);
         $statement->execute();
 
-        return $statement->fetch(PDO::FETCH_ASSOC);
+        $i = 0;
+
+        while ($row = $statement->fetch()) {
+            $emailList[$i]['id'] = $row['id'];
+            $emailList[$i]['email'] = $row['email'];
+            $emailList[$i]['host'] = $row['host'];
+            $emailList[$i]['location'] = $row['location'];
+            $emailList[$i]['date'] = $row['date'];
+
+            $i++;
+        }
+
+        return $emailList;
+    }
+
+    public function byEmailsByHost($host)
+    {
+        $sql = "SELECT * FROM emails WHERE host='$host'";
+        $statement = $this->db->prepare($sql);
+        $statement->execute();
+
+        $i = 0;
+
+        while ($row = $statement->fetch()) {
+            $emailList[$i]['id'] = $row['id'];
+            $emailList[$i]['email'] = $row['email'];
+            $emailList[$i]['host'] = $row['host'];
+            $emailList[$i]['location'] = $row['location'];
+            $emailList[$i]['date'] = $row['date'];
+
+            $i++;
+        }
+
+        return $emailList;
+
+//        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
     private function buildColumns(Email $email, array $additional = [])

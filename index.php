@@ -1,6 +1,12 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-require_once 'public/header.php';
+define('ROOT', dirname(__FILE__));
 
-var_dump($emails);
+
+use src\Components\Router;
+require_once 'public/header.php';
+require_once(ROOT.'/src/Components/Router.php');
+
+$router = new Router();
+$router->run();//Print all emails
