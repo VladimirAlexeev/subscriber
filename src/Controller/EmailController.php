@@ -13,8 +13,25 @@ class EmailController
         $this->emailRepository = $emailRepository;
     }
 
+    public function index()
+    {
+        return print_r('Home page');
+    }
+
     public function getAllEmails()
     {
-        return $this->emailRepository->all();
+         $emailList = $this->emailRepository->all();
+         require_once(ROOT.'/src/template/views/admin/index.php');
+
+         return true;
+    }
+
+    public function getAllEmailsByHost(string $host)
+    {
+        $emailList = $this->emailRepository->byEmailsByHost($host);
+
+        require_once(ROOT.'/src/template/views/admin/index.php');
+
+        return true;
     }
 }
