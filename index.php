@@ -9,4 +9,4 @@ require_once 'public/header.php';
 require_once(ROOT.'/src/Components/Router.php');
 
 $router = new Router();
-$router->run();//Print all emails
+$router->run();
