@@ -4,6 +4,7 @@ namespace src\Components;
 
 use config\Database\Database;
 use src\Controller\EmailController;
+use src\Controller\SubscriberController;
 use src\Repository\EmailRepository;
 
 class Router
@@ -40,18 +41,23 @@ class Router
     private function connectController($controller)
     {
         include_once './config/Database/Database.php';
+        include_once('src/Repository/EmailRepository.php');
 
         $database = new Database();
         $db = $database->getConnection();
+        $storage = new EmailRepository($db);
 
         switch ($controller) {
             case 'EmailController':
                 include_once('src/Controller/EmailController.php');
-                include_once('src/Repository/EmailRepository.php');
-                $storage = new EmailRepository($db);
+
                 return new EmailController($storage);
+            case 'SubscriberController':
+                include_once('src/Controller/SubscriberController.php');
+
+                return new SubscriberController($storage);
             default:
-                throw new \Exception("Controller with name '$controller' does not exist!");
+                throw new \HttpException("Controller with name '$controller' does not exist!");
         }
     }
 
