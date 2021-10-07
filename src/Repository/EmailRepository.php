@@ -58,6 +58,31 @@ class EmailRepository
 //        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function findEmail($email)
+    {
+        $sql = "SELECT COUNT(*) FROM emails WHERE email ='$email'";
+        $statement = $this->db->prepare($sql);
+        $statement->execute();
+
+        if ($statement->fetchColumn()) {
+            return true;
+        }
+
+        return  false;
+    }
+
+    public function saveEmail($email, $host, $location)
+    {
+        $sql = "INSERT INTO `emails`(`email`, `host`, `location`) VALUES (:email, :host, :location)";
+
+        $result = $this->db->prepare($sql);
+        $result->bindParam(':email', $email, PDO::PARAM_STR);
+        $result->bindParam(':host', $host, PDO::PARAM_STR);
+        $result->bindParam(':location', $location, PDO::PARAM_STR);
+
+        $result->execute();
+    }
+
     private function buildColumns(Email $email, array $additional = [])
     {
         return array_merge([

@@ -13,11 +13,6 @@ class EmailController
         $this->emailRepository = $emailRepository;
     }
 
-    public function index()
-    {
-        return print_r('Home page');
-    }
-
     public function getAllEmails()
     {
          $emailList = $this->emailRepository->all();

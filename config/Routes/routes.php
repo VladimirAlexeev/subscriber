@@ -1,7 +1,7 @@
 <?php
 return [
     //Routes
-    'subscriber' => 'email/index',
+    'subscriber' => 'subscriber/index',
     'subscriber/emails' => 'email/getAllEmails', // use action list in EmailController
 
     // Params
